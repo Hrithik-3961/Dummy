@@ -15,6 +15,8 @@ public class PlayerMovement : MonoBehaviour
 
     private enum MovementState { idle, running, jumping, falling }
 
+    [SerializeField] private AudioSource jumpSoundEffect;
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -31,8 +33,10 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = new Vector2(moveSpeed * dirX, rb.velocity.y);
 
         if (Input.GetButtonDown("Jump") && isGrounded()) 
+        {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-
+            jumpSoundEffect.Play();
+        }
         UpdateAnimationState();
 
     }
